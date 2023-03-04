@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QMainWindow, QSpinBox, QFontComboBox, QFileDialog
 from PySide6.QtCore import QFile, QTextStream, Qt
 from PySide6.QtGui import QIcon, QFont, QActionGroup
 from ui_mainwindow import Ui_MainWindow
+import os
 import resources_rc
 
 class MainWindow(QMainWindow):
@@ -27,7 +28,8 @@ class MainWindow(QMainWindow):
         self.ui.actionLeftAlign.setChecked(True)
 
     def setAppIcon(self) -> None:
-        self.app.setWindowIcon(QIcon("goat.png"))
+        print(os.getcwd())
+        self.app.setWindowIcon(QIcon("./assets/goat.png"))
 
     def connectAllActions(self) -> None:
         self.ui.actionOpen.triggered.connect(self.openFile)
