@@ -1,9 +1,11 @@
-from PySide6.QtWidgets import QMainWindow, QSpinBox, QFontComboBox, QFileDialog
-from PySide6.QtCore import QFile, QTextStream, Qt
-from PySide6.QtGui import QIcon, QFont, QActionGroup
+from PySide6.QtWidgets import QMainWindow, QSpinBox, QFontComboBox, QFileDialog, QSystemTrayIcon, QMenu
+from PySide6.QtCore import QFile, QTextStream, Qt, QCoreApplication, QSize
+from PySide6.QtGui import QIcon, QFont, QActionGroup, QGuiApplication
 from ui_mainwindow import Ui_MainWindow
 import os
 import resources_rc
+
+QGuiApplication.setQuitOnLastWindowClosed(False)
 
 class MainWindow(QMainWindow):
     def __init__(self, app) -> None:
@@ -28,8 +30,16 @@ class MainWindow(QMainWindow):
         self.ui.actionLeftAlign.setChecked(True)
 
     def setAppIcon(self) -> None:
-        print(os.getcwd())
+        menu = QMenu()
+        exitAct = menu.addAction("Exit GOATpad")
+        tmpicon = QIcon()
+        tmpicon.addFile(u":/iconsLight/assets/light/Custom_x.svg", QSize(), QIcon.Normal, QIcon.Off)
+        exitAct.setIcon(tmpicon)
+        exitAct.triggered.connect(self.completeKill)
+        self.trayIcon = QSystemTrayIcon(QIcon("./assets/goat.png"))
+        self.trayIcon.setContextMenu(menu)
         self.app.setWindowIcon(QIcon("./assets/goat.png"))
+        self.trayIcon.show()
 
     def connectAllActions(self) -> None:
         self.ui.actionOpen.triggered.connect(self.openFile)
@@ -59,7 +69,7 @@ class MainWindow(QMainWindow):
         self.ui.textEdit.setFontPointSize(data)
 
     def changeFont(self, data) -> None:
-        self.ui.textEdit.setCurrentFont(data)
+        self.ui.textEdit.setFont(data)
         
     def boldText(self, data) -> None:
         if data: self.ui.textEdit.setFontWeight(QFont.Bold) 
@@ -102,6 +112,9 @@ class MainWindow(QMainWindow):
             with open(self.filename, "r") as f:
                 self.ui.textEdit.insertPlainText(f.read())
             self.updateWindowName(self.filename.split("/")[-1])
+
+    def completeKill(self) -> None:
+        QCoreApplication.exit(0)        
 
     def stopExecution(self) -> None:
         self.app.quit()
