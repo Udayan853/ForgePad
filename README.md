@@ -1,6 +1,6 @@
 <img align = "right" src = "./assets/goat.png" width = 180>
 
-# GOATpad
+# ForgePad
 
 A Modern and Simple text editor
 
@@ -8,26 +8,26 @@ A Modern and Simple text editor
 
  - Clone the repository
 ```
-git clone https://github.com/Udayan853/GOATpad.git
+git clone https://github.com/Udayan853/ForgePad.git
 ```
 
 - Create a virtual environment in same directory
 ```
-python -m venv GOATpad
+python -m venv ForgePad
 ```
 
 - Activate virtual environment and install the dependencies
 ```
-source GOATpad/bin/activate
+source ForgePad/bin/activate
 pip install -r requirements.txt
 ```
 
-- Run GOATpad
+- Run ForgePad
 ```
-python GOATpad/main.py
+python ForgePad/main.py
 ```
 <hr>
-<ins>Note</ins>: GOATpad has only been tested on linux based systems
+<ins>Note</ins>: ForgePad has only been tested on linux based systems
 <hr>
 
 ### Objectives
